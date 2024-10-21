@@ -2,24 +2,26 @@ import json
 import sys
 import hashlib
 import bencodepy
-# import requests - available if you need it!
-# Examples:
-#
-# - decode_bencode(b"5:hello") -> b"hello"
-# - decode_bencode(b"10:hello12345") -> b"hello12345"
+
 bc = bencodepy.Bencode(encoding="utf-8")
+
 def decode_bencode(bencoded_value):
     if chr(bencoded_value[0]).isdigit():
-        length = int(bencoded_value.split(b":")[0])
-        return bencoded_value.split(b":")[1][:length]
+        # Find the colon separating the length from the string
+        colon_index = bencoded_value.find(b":")
+        length = int(bencoded_value[:colon_index])
+        # The string starts after the colon and is of 'length' bytes
+        start_index = colon_index + 1
+        return bencoded_value[start_index:start_index + length]
     elif bencoded_value.startswith(b"i"):
         return int(bencoded_value[1:-1])
-    elif bencoded_value.startswith(b"l"):  # list -> l5:helloi52ee = ['hello', 52]
+    elif bencoded_value.startswith(b"l"):  # list
         return bc.decode(bencoded_value)
-    elif bencoded_value.startswith(b"d"):  # dictionary -> d5:helloi52ee = {'hello': 52}
+    elif bencoded_value.startswith(b"d"):  # dictionary
         return bc.decode(bencoded_value)
     else:
         raise NotImplementedError("Only strings are supported at the moment")
+
 def bytes_to_str(data):
     if isinstance(data, bytes):
         return data.decode("utf-8", errors="replace")
@@ -31,17 +33,11 @@ def bytes_to_str(data):
         return {bytes_to_str(k): bytes_to_str(v) for k, v in data.items()}
     else:
         raise TypeError(f"Type not serializable: {type(data)}")
+
 def main():
     command = sys.argv[1]
-    # You can use print statements as follows for debugging, they'll be visible when running tests.
-    # print("Logs from your program will appear here!")
     if command == "decode":
         bencoded_value = sys.argv[2].encode()
-        # json.dumps() can't handle bytes, but bencoded "strings" need to be
-        # bytestrings since they might contain non utf-8 characters.
-        #
-        # Let's convert them to strings for printing to the console.
-        # Uncomment this block to pass the first stage
         print(json.dumps(decode_bencode(bencoded_value), default=bytes_to_str))
     elif command == "info":
         torrent_file_path = sys.argv[2]
@@ -55,5 +51,6 @@ def main():
         print(f"Info Hash: {info_hash}")
     else:
         raise NotImplementedError(f"Unknown command {command}")
+
 if __name__ == "__main__":
     main()
