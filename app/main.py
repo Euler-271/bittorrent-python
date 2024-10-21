@@ -5,6 +5,7 @@ import socket
 import struct
 import math
 import os
+import sys  # Add this import to handle command-line arguments
 
 class MessageIDs:
     UNCHOKE = 1
@@ -114,7 +115,7 @@ class TorrentClient:
 
 
 def main():
-    command = sys.argv[1]
+    command = sys.argv[1]  # Access command-line arguments
     torrent_client = TorrentClient()
 
     if command == "download":
