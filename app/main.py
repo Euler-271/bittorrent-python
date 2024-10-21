@@ -9,9 +9,6 @@ import struct
 import urllib.parse
 
 
-'''
-    Writing a custom decode_bencode function
-'''    
 def decode_bencode(bencoded_value):
     if chr(bencoded_value[0]).isdigit(): #Strings
         return decode_string(bencoded_value)
