@@ -42,12 +42,11 @@ def main():
         # Uncomment this block to pass the first stage
         print(json.dumps(decode_bencode(bencoded_value), default=bytes_to_str))
     elif command == "info":
-        file_name = sys.argv[2]
-        with open(file_name, "rb") as torrent_file:
-            bencoded_content = torrent_file.read()
-        torrent = decode_bencode(bencoded_content)
-        print("Tracker URL:", torrent["announce"].decode())
-        print("Length:", torrent["info"]["length"])
+        with open(sys.argv[2], "rb") as f:
+            data = f.read()
+            parsed = decode_bencode(data)
+            print("Tracker URL:", parsed["announce"].decode("utf-8"))
+            print("Length:", parsed["info"]["length"])
     else:
         raise NotImplementedError(f"Unknown command {command}")
 
