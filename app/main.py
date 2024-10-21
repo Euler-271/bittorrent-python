@@ -2,13 +2,14 @@ import json
 import sys
 import bencodepy
 # import requests - available if you need it!
-
+bc = bencodepy.Bencode(encoding="utf-8")
 # Examples:
 #
 # - decode_bencode(b"5:hello") -> b"hello"
 # - decode_bencode(b"10:hello12345") -> b"hello12345"
 def decode_bencode(bencoded_value):
     return bencodepy.decode(bencoded_value)
+    return bc.decode(bencoded_value)
     if chr(bencoded_value[0]).isdigit():
         first_colon_index = bencoded_value.find(b":")
         if first_colon_index == -1:
