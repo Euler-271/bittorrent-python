@@ -1,34 +1,26 @@
-[![progress-banner](https://backend.codecrafters.io/progress/bittorrent/e2e488b5-fb03-4d44-a400-1ea1826927e2)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
+# BitTorrent 
 
-This is a starting point for Python solutions to the
-["Build Your Own BitTorrent" Challenge](https://app.codecrafters.io/courses/bittorrent/overview).
+This project is a BitTorrent built using Python, designed to upload and handle `.torrent` files. It provides a basic file upload interface, saves uploaded torrent files to a specified directory, and displays success or error messages based on file validation.
 
-In this challenge, you’ll build a BitTorrent client that's capable of parsing a
-.torrent file and downloading a file from a peer. Along the way, we’ll learn
-about how torrent files are structured, HTTP trackers, BitTorrent’s Peer
-Protocol, pipelining and more.
+## Features
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[codecrafters.io](https://codecrafters.io) to try the challenge.
+- **Upload Functionality**: Users can upload `.torrent` files to the website.
+- **File Validation**: Only `.torrent` files are allowed; any other format is restricted.
+- **Flash Messages**: Real-time feedback is given to users on successful uploads or errors.
 
-# Passing the first stage
+## Prerequisites
 
-The entry point for your BitTorrent implementation is in `app/main.py`. Study
-and uncomment the relevant code, and push your changes to pass the first stage:
+Before running this application, ensure you have the following installed:
 
-```sh
-git commit -am "pass 1st stage" # any msg
-git push origin master
-```
+- Python 3.10+
+- Flask and other dependencies listed in `requirements.txt`
 
-Time to move on to the next stage!
+## Setup Instructions
 
-# Stage 2 & beyond
+### 1. Clone the Repository
 
-Note: This section is for stages 2 and beyond.
-
-1. Ensure you have `python (3.11)` installed locally
-1. Run `./your_bittorrent.sh` to run your program, which is implemented in
+```bash
+git clone <repository-url>
+cd <repository-folder>
+Run `./your_bittorrent.sh` to run your program, which is implemented in
    `app/main.py`.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
